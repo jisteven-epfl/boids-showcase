@@ -29,18 +29,16 @@
   <em>Boids 用户图形界面，展示了复杂的涌现群集行为。</em>
 </div>
 
-### 🎯 项目范围与实现细节 (Project Scope & Implementation Details)
+### 🎯 项目范围与实现细节
 
 本项目基于 EPFL CS-214 课程框架开发。为了准确说明工作内容，特此声明：
 
 - **由课程框架提供**：基础的抽象结构特质 (Traits)、图形用户界面 (GUI) 、不依赖 Scala 标准库的不可变集合底层实现 (`BoidSequence` 等) 以及基础的高阶函数组件。
 - **学生独立实现 (我们的工作)**：包含物理计算引擎、涌现动态算法、实体定义以及相关的测试代码。代码集中在 `Boid.scala`, `BoidLogic.scala` 与 `BoidTest.scala` 等文件中，共计约 700 行 Scala 3 代码。
 
----
-
 ## 🧠 核心技术原理解析
 
-### 1. 基础集群规则 (Flocking Rules)
+### 1. 基础集群规则
 
 引擎通过计算代表不同本能的聚合力来实现栩栩如生的集群行为。在每一个时间帧 (tick) 中，所有的个体都会在精确的**感知半径 (Perception Radius)** 内评估其邻居，并应用三大基本原则：
 
@@ -55,9 +53,7 @@
 - **捕食者与猎物机制**：特定类型的个体被标记为捕食者（如：红鸟捕食蓝鸟）。猎物在检测到捕食者时会主动逃窜 (`avoidPredatorForce`)，而捕食者则主动追击 (`chasePreyForce`)，从而形成动态的追逐猎杀场面。彻底的捕食还会触发列表层面的动态实体过滤（个体消亡）。
 - **人群拥挤惩罚 (Crowd Penalties)**：一项独特的物理惩罚机制。当局部群体密度超过预设阈值 `CrowdPenaltyConfig.threshold` 时，引擎会施加额外的减速向量 (`crowdAccelPenalty`) 和最低速度限制，这使得庞大、密集的鸟群变得迟缓，并在面对捕食者时更显脆弱。
 
----
-
-## 👨‍💻 个人贡献 (Personal Contributions)
+## 👨‍💻 个人贡献
 
 我的核心工作集中在架构物理引擎和实体逻辑，具体实现在 `Boid.scala` 和 `BoidLogic.scala` 模块中：
 
@@ -65,12 +61,11 @@
 2. **复杂的多物种动态交互**：设计并实现了高级的捕食者-猎物机制。包括猎物发现敌人时主动逃避 (`avoidPredatorForce`)、捕食者主动追击 (`chasePreyForce`)，以及动态的实体消亡判定逻辑 (`deleteBoid`)。
 3. **人群拥挤惩罚系统**：独创了一种空间密度算法 (`crowdPenalty`)，通过统计局部种群数量，动态施加物理减速和特定的最低速度限制，在结构上限制了过于密集的鸟群。
 
----
+## ⚖️ 项目署名
 
-## ⚖️ 项目署名 (Attribution)
+本项目由 **Steven Ji**，**Elsa Sánchez Fernández** 和 **Nicolas Raymond Karmolinski**，于 2025 年春季学期历时 3 周完成，属于洛桑联邦理工学院 (EPFL) 的 [软件构建 (Software Construction, CS-214)](https://edu.epfl.ch/coursebook/en/software-construction-CS-214) 课程项目（8 学分）。
 
-本项目作为 EPFL CS-214 课程的一部分开发。闭源模块中的实现逻辑与架构设计均为作者的原创成果。
-
----
-
-> *本项目由 **Steven Ji**，**Elsa Sánchez Fernández** 和 **Nicolas Raymond Karmolinski**，于 2025 年春季学期历时 3 周完成，属于洛桑联邦理工学院 (EPFL) 的 [软件构建 (Software Construction, CS-214)](https://edu.epfl.ch/coursebook/en/software-construction-CS-214) 课程项目（8 学分）。*
+### 知识产权与合规性说明
+- **课程教材：** 所有基础框架、实验课题及底层代码的版权均属 © 2023–2025 EPFL 所有。本仓库严格遵守课程规定，不发布任何原始课程资料或源代码。
+- **原创贡献：** 项目中的实现逻辑、优化的系统架构以及特定的功能扩展均为作者的原创知识成果。
+- **项目用途：** 本仓库仅作为个人作品集使用，旨在展示项目成果、架构设计及性能指标。

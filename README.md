@@ -36,8 +36,6 @@ This project was developed within the framework of the EPFL CS-214 course.
 - **Provided by the Course Framework**: The abstract structural traits, Graphical User Interface (GUI), the foundational immutable collections (`BoidSequence`, `Vector2Sequence`, `FloatSequence`), and core higher-order functional combinators.
 - **Student Implementation**: The complete physics engine, emergent dynamics algorithms, and entity definitions, specifically contained within `Boid.scala`, `BoidLogic.scala`, and `BoidTest.scala` (totaling ~700 lines of rigorous Scala 3 code).
 
----
-
 ## 🧠 Core Mechanics: Under the Hood
 
 ### 1. The Foundational Flocking Rules
@@ -55,8 +53,6 @@ Beyond standard rules, the simulation introduces complex predator-prey dynamics 
 - **Predator & Prey Mechanics**: Specific boid types are tagged as predators (e.g., Red boids hunting Blue boids). prey actively flee upon detecting predators (`avoidPredatorForce`), while predators actively pursue prey (`chasePreyForce`), creating dynamic hunting chases. Complete consumption triggers dynamic list filtering (deletions).
 - **Crowd Penalties**: A unique mechanic where overly dense flocks suffer physical consequences. If local density exceeds `CrowdPenaltyConfig.threshold`, a targeted deceleration vector (`crowdAccelPenalty`) and minimum-speed handicap is applied, making large, dense swarms inherently more sluggish and structurally vulnerable to predators.
 
----
-
 ## 👨‍💻 Personal Contributions
 
 My core focus revolved around architecting the physics engine and the entity logic from scratch, specifically within the `Boid.scala` and `BoidLogic.scala` modules:
@@ -65,12 +61,10 @@ My core focus revolved around architecting the physics engine and the entity log
 2. **Complex Multi-Species Dynamics**: Designed and implemented the advanced Predator-Prey mechanics. This includes the logic for predator avoidance (`avoidPredatorForce`), prey pursuit (`chasePreyForce`), and dynamic entity consumption logic (`deleteBoid`).
 3. **Crowd Penalty System**: Created a unique spatial density algorithm (`crowdPenalty`) that structurally handicaps densely packed swarms by dynamically applying deceleration and specific minimum-speed configurations based on local population counts.
 
----
+## ⚖️ License & Attribution
+This project was developed by **Steven Ji**, **Elsa Sánchez Fernández** and **Nicolas Raymond Karmolinski**  as a 3-person team collaboration over 3 weeks in the Spring 2025 semester for the EPFL course [Software Construction (CS-214)](https://edu.epfl.ch/coursebook/en/software-construction-CS-214) (8 credits).
 
-## ⚖️ License & Copyright
-
-This project incorporates skeleton code provided by EPFL. This repository is maintained strictly for portfolio demonstration and internship application purposes, thus the source code is not publicly available. All rights reserved by the authors and EPFL.
-
----
-
-> *This project was completed by **Steven Ji**, **Elsa Sánchez Fernández** and **Nicolas Raymond Karmolinski** as part of a 3-person team collaboration over 3 weeks in the Spring 2025 semester for the EPFL course [Software Construction (CS-214)](https://edu.epfl.ch/coursebook/en/software-construction-CS-214) (8 credits).*
+### Intellectual Property & Compliance
+- **Course Materials:** All foundational frameworks, lab assignments, and base code are © 2023–2025 EPFL. In strict adherence to the course policy, no original course materials or source code are distributed in this repository.
+- **Original Contributions:** The implementation logic, optimized system architecture, and specific functional extensions represent the original intellectual property of the authors.
+- **Usage:** This repository serves solely as a portfolio showcase of the project's results, architectural design, and performance metrics.
