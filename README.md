@@ -23,10 +23,9 @@
 Instead of scripting individual paths, the engine dynamically computes interaction forces for every "boid" based on its immediate neighbors, creating organic collective movements in real-time.
 
 <div align="center">
-  <!-- Place holder for GUI image -->
-  <!-- <img src="assets/boids-gui.png" alt="Boids GUI" width="800"/> -->
+  <img src="assets/boids-demo.webp" alt="Boids Simulation Demo" width="800"/>
   <br/>
-  <em>Boids Graphical User Interface showing emergent flocking behaviors.</em>
+  <em>Boids showcasing emergent flocking and predator-prey dynamics.</em>
 </div>
 
 ### 🎯 Project Scope & Implementation Details
@@ -50,21 +49,30 @@ The engine simulates lifelike swarming by calculating aggregate forces represent
 
 Beyond standard rules, the simulation introduces complex predator-prey dynamics and specialized environmental forces:
 
-- **Predator & Prey Mechanics**: Specific boid types are tagged as predators (e.g., Red boids hunting Blue boids). prey actively flee upon detecting predators (`avoidPredatorForce`), while predators actively pursue prey (`chasePreyForce`), creating dynamic hunting chases. Complete consumption triggers dynamic list filtering (deletions).
-- **Crowd Penalties**: A unique mechanic where overly dense flocks suffer physical consequences. If local density exceeds `CrowdPenaltyConfig.threshold`, a targeted deceleration vector (`crowdAccelPenalty`) and minimum-speed handicap is applied, making large, dense swarms inherently more sluggish and structurally vulnerable to predators.
+- **Predator & Prey Mechanics**: Specific boid types are tagged as predators. The engine simulates a cyclical food chain across four distinct species (**Red ➔ Blue ➔ Yellow ➔ Green ➔ Red**), where each boid proactively flees from its specific predator and pursues its designated prey, creating dynamic, high-stakes hunting chases throughout the simulation window.
+- **Crowd Penalties**: A unique mechanic where overly dense flocks suffer physical consequences. If local density exceeds a critical threshold, a targeted deceleration vector and minimum-speed handicap is applied, making large, dense swarms inherently more sluggish and structurally vulnerable to predators.
+
+### 3. Performance Optimization: QuadTree
+
+- **Computational Efficiency**: Implemented a custom `QuadTree` spatial index, refactoring the proximity search from $O(N^2)$ to $O(N \log N)$ complexity.
+- **Spatial Partitioning**: Drastically reduced redundant distance checks by dynamically sub-dividing the 2D simulation space.
+- **Scalability**: Benchmarked at **~8 Ticks Per Second** with **2,000 active boids**, enabling fluid real-time interaction for massive swarms.
 
 ## 👨‍💻 Personal Contributions
 
 My core focus revolved around architecting the physics engine and the entity logic from scratch, specifically within the `Boid.scala` and `BoidLogic.scala` modules:
 
-1. **Mathematical Flocking Implementation**: Engineered the Cohesion, Alignment, and Avoidance algorithms using functional programming, ensuring completely side-effect-free calculations.
-2. **Complex Multi-Species Dynamics**: Designed and implemented the advanced Predator-Prey mechanics. This includes the logic for predator avoidance (`avoidPredatorForce`), prey pursuit (`chasePreyForce`), and dynamic entity consumption logic (`deleteBoid`).
-3. **Crowd Penalty System**: Created a unique spatial density algorithm (`crowdPenalty`) that structurally handicaps densely packed swarms by dynamically applying deceleration and specific minimum-speed configurations based on local population counts.
+1. **High-Performance Spatial Partitioning (QuadTree)**: Individually architected and implemented a custom **QuadTree** data structure to replace the linear $O(N^2)$ accumulation logic. This optimized the proximity search to $O(N \log N)$, enabling the engine to support 2,000+ synchronized agents in real-time.
+2. **Mathematical Flocking Implementation**: Engineered the core Cohesion, Alignment, and Avoidance algorithms using pure functional programming principles, ensuring deterministic and side-effect-free physics calculations.
+3. **Advanced Pursuit Dynamics**: Designed and implemented the predator-prey pursuit logic, transforming random movement into a directed, cyclical ecosystem where entities intelligently **track targets** and **avoid threats**.
+4. **Crowd Penalty System**: Designed the spatial density algorithm that dynamically handicaps dense swarms by applying deceleration and minimum-speed handicaps based on local population counts.
 
 ## ⚖️ License & Attribution
+
 This project was developed by **Steven Ji**, **Elsa Sánchez Fernández** and **Nicolas Raymond Karmolinski**  as a 3-person team collaboration over 3 weeks in the Spring 2025 semester for the EPFL course [Software Construction (CS-214)](https://edu.epfl.ch/coursebook/en/software-construction-CS-214) (8 credits).
 
 ### Intellectual Property & Compliance
+
 - **Course Materials:** All foundational frameworks, lab assignments, and base code are © 2023–2025 EPFL. In strict adherence to the course policy, no original course materials or source code are distributed in this repository.
 - **Original Contributions:** The implementation logic, optimized system architecture, and specific functional extensions represent the original intellectual property of the authors.
 - **Usage:** This repository serves solely as a portfolio showcase of the project's results, architectural design, and performance metrics.
